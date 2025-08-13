@@ -1,30 +1,63 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Get .sc-notToMiss-container
-  const container = element.querySelector('.sc-notToMiss-container');
-  if (!container) return;
+  // Find the main grid that contains the columns
+  let grid = element.querySelector('.grid-layout');
+  if (!grid) {
+    const container = element.querySelector('.container');
+    if (container) {
+      grid = container.querySelector('.grid-layout');
+    }
+  }
 
-  // Get carousel elements
-  const carrousel = container.querySelector('.sc-miniCarrousel');
-  if (!carrousel) return;
-  const carrouselWrapper = carrousel.querySelector('.swiper-wrapper');
-  if (!carrouselWrapper) return;
-  const items = Array.from(carrouselWrapper.querySelectorAll(':scope > .sc-miniCarrousel-element'));
+  let leftContent, rightContent;
+  if (grid) {
+    const children = Array.from(grid.children);
+    leftContent = children.find(child => child.querySelector('h1, h2, h3, h4, h5, h6, p, a, .button, .button-group'));
+    rightContent = children.find(child => child.querySelector('img'));
+    if (!rightContent) {
+      rightContent = children.find(child => child.tagName === 'IMG');
+    }
+    if (!leftContent && children.length > 0) leftContent = children[0];
+    if (!rightContent && children.length > 1) rightContent = children[1];
+  } else {
+    const possibleDivs = Array.from(element.querySelectorAll(':scope > div'));
+    leftContent = possibleDivs.find(child => child.querySelector('h1, h2, h3, h4, h5, h6, p, a, .button, .button-group'));
+    rightContent = possibleDivs.find(child => child.querySelector('img'));
+    if (!leftContent && possibleDivs.length > 0) leftContent = possibleDivs[0];
+    if (!rightContent && possibleDivs.length > 1) rightContent = possibleDivs[1];
+  }
 
-  // Prepare columns
-  const leftCol = items[0] || '';
-  const rightCol = document.createElement('div');
-  // Heading (preserve tag)
-  const heading = container.querySelector('h2,h3,h4,h5,h6');
-  if (heading) rightCol.appendChild(heading);
-  items.slice(1).forEach(item => rightCol.appendChild(item));
+  if (!leftContent && !rightContent) {
+    leftContent = element;
+    rightContent = '';
+  }
 
-  // The header row must be a SINGLE CELL array (one column), even if second row has more columns
-  const cells = [
-    ['Columns (columns15)'],
-    [leftCol, rightCol],
-  ];
+  // Header row must be exactly one cell: ['Columns (columns15)']
+  const headerRow = ['Columns (columns15)'];
+  const contentRow = [leftContent, rightContent];
 
-  const table = WebImporter.DOMUtils.createTable(cells, document);
+  // Custom table creation to ensure header row is one cell that spans all columns
+  const table = document.createElement('table');
+  const headerTr = document.createElement('tr');
+  const th = document.createElement('th');
+  th.textContent = headerRow[0];
+  th.setAttribute('colspan', contentRow.length);
+  headerTr.appendChild(th);
+  table.appendChild(headerTr);
+
+  const tr = document.createElement('tr');
+  contentRow.forEach(cell => {
+    const td = document.createElement('td');
+    if (typeof cell === 'string') {
+      td.innerHTML = cell;
+    } else if (Array.isArray(cell)) {
+      td.append(...cell);
+    } else if (cell) {
+      td.append(cell);
+    }
+    tr.appendChild(td);
+  });
+  table.appendChild(tr);
+
   element.replaceWith(table);
 }

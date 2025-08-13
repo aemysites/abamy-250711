@@ -11,62 +11,96 @@
  */
 /* global WebImporter */
 /* eslint-disable no-console */
-import hero5Parser from './parsers/hero5.js';
-import cards11Parser from './parsers/cards11.js';
-import columns6Parser from './parsers/columns6.js';
+import columns1Parser from './parsers/columns1.js';
+import columns7Parser from './parsers/columns7.js';
+import cards10Parser from './parsers/cards10.js';
+import cards8Parser from './parsers/cards8.js';
+import hero3Parser from './parsers/hero3.js';
 import hero14Parser from './parsers/hero14.js';
-import hero10Parser from './parsers/hero10.js';
-import cards3Parser from './parsers/cards3.js';
-import hero16Parser from './parsers/hero16.js';
-import cards13Parser from './parsers/cards13.js';
-import cards2Parser from './parsers/cards2.js';
-import cards17Parser from './parsers/cards17.js';
-import cards1Parser from './parsers/cards1.js';
+import hero11Parser from './parsers/hero11.js';
+import columns16Parser from './parsers/columns16.js';
+import cardsNoImages19Parser from './parsers/cardsNoImages19.js';
+import hero20Parser from './parsers/hero20.js';
+import carousel17Parser from './parsers/carousel17.js';
+import cards21Parser from './parsers/cards21.js';
+import columns5Parser from './parsers/columns5.js';
+import accordion23Parser from './parsers/accordion23.js';
+import hero12Parser from './parsers/hero12.js';
+import columns9Parser from './parsers/columns9.js';
+import cards6Parser from './parsers/cards6.js';
+import columns2Parser from './parsers/columns2.js';
+import columns27Parser from './parsers/columns27.js';
+import columns18Parser from './parsers/columns18.js';
+import columns4Parser from './parsers/columns4.js';
+import cards28Parser from './parsers/cards28.js';
+import columns31Parser from './parsers/columns31.js';
+import cards33Parser from './parsers/cards33.js';
+import columns32Parser from './parsers/columns32.js';
+import accordion34Parser from './parsers/accordion34.js';
+import tabs22Parser from './parsers/tabs22.js';
+import hero35Parser from './parsers/hero35.js';
+import columns36Parser from './parsers/columns36.js';
+import cards37Parser from './parsers/cards37.js';
+import columns38Parser from './parsers/columns38.js';
+import hero39Parser from './parsers/hero39.js';
+import cards24Parser from './parsers/cards24.js';
+import columns30Parser from './parsers/columns30.js';
+import cards25Parser from './parsers/cards25.js';
+import columns29Parser from './parsers/columns29.js';
 import columns15Parser from './parsers/columns15.js';
-import hero21Parser from './parsers/hero21.js';
-import columns20Parser from './parsers/columns20.js';
-import hero18Parser from './parsers/hero18.js';
-import cards7Parser from './parsers/cards7.js';
-import cards9Parser from './parsers/cards9.js';
-import cards22Parser from './parsers/cards22.js';
-import hero8Parser from './parsers/hero8.js';
-import carousel19Parser from './parsers/carousel19.js';
 import headerParser from './parsers/header.js';
 import metadataParser from './parsers/metadata.js';
 import cleanupTransformer from './transformers/cleanup.js';
 import imageTransformer from './transformers/images.js';
 import linkTransformer from './transformers/links.js';
+import sectionsTransformer from './transformers/sections.js';
 import { TransformHook } from './transformers/transform.js';
 import { customParsers, customTransformers, customElements } from './import.custom.js';
 import {
   generateDocumentPath,
   handleOnLoad,
-  TableBuilder,
   mergeInventory,
 } from './import.utils.js';
 
 const parsers = {
   metadata: metadataParser,
-  hero5: hero5Parser,
-  cards11: cards11Parser,
-  columns6: columns6Parser,
+  columns1: columns1Parser,
+  columns7: columns7Parser,
+  cards10: cards10Parser,
+  cards8: cards8Parser,
+  hero3: hero3Parser,
   hero14: hero14Parser,
-  hero10: hero10Parser,
-  cards3: cards3Parser,
-  hero16: hero16Parser,
-  cards13: cards13Parser,
-  cards2: cards2Parser,
-  cards17: cards17Parser,
-  cards1: cards1Parser,
+  hero11: hero11Parser,
+  columns16: columns16Parser,
+  cardsNoImages19: cardsNoImages19Parser,
+  hero20: hero20Parser,
+  carousel17: carousel17Parser,
+  cards21: cards21Parser,
+  columns5: columns5Parser,
+  accordion23: accordion23Parser,
+  hero12: hero12Parser,
+  columns9: columns9Parser,
+  cards6: cards6Parser,
+  columns2: columns2Parser,
+  columns27: columns27Parser,
+  columns18: columns18Parser,
+  columns4: columns4Parser,
+  cards28: cards28Parser,
+  columns31: columns31Parser,
+  cards33: cards33Parser,
+  columns32: columns32Parser,
+  accordion34: accordion34Parser,
+  tabs22: tabs22Parser,
+  hero35: hero35Parser,
+  columns36: columns36Parser,
+  cards37: cards37Parser,
+  columns38: columns38Parser,
+  hero39: hero39Parser,
+  cards24: cards24Parser,
+  columns30: columns30Parser,
+  cards25: cards25Parser,
+  columns29: columns29Parser,
   columns15: columns15Parser,
-  hero21: hero21Parser,
-  columns20: columns20Parser,
-  hero18: hero18Parser,
-  cards7: cards7Parser,
-  cards9: cards9Parser,
-  cards22: cards22Parser,
-  hero8: hero8Parser,
-  carousel19: carousel19Parser,
   ...customParsers,
 };
 
@@ -74,6 +108,7 @@ const transformers = {
   cleanup: cleanupTransformer,
   images: imageTransformer,
   links: linkTransformer,
+  sections: sectionsTransformer,
   ...customTransformers,
 };
 
@@ -86,7 +121,7 @@ WebImporter.Import = {
   ),
   transform: (hookName, element, payload) => {
     // perform any additional transformations to the page
-    Object.entries(transformers).forEach(([, transformerFn]) => (
+    Object.values(transformers).forEach((transformerFn) => (
       transformerFn.call(this, hookName, element, payload)
     ));
   },
@@ -134,9 +169,18 @@ function transformPage(main, { inventory, ...source }) {
       .filter((instance) => WebImporter.Import.findSiteUrl(instance, urls)?.url === originalURL)
       .map((instance) => ({
         ...block,
+        uuid: instance.uuid,
+        section: instance.section,
         element: WebImporter.Import.getElementByXPath(document, instance.xpath),
       })))
     .filter((block) => block.element);
+
+  const defaultContentElements = inventory.outliers
+    .filter((instance) => WebImporter.Import.findSiteUrl(instance, urls)?.url === originalURL)
+    .map((instance) => ({
+      ...instance,
+      element: WebImporter.Import.getElementByXPath(document, instance.xpath),
+    }));
 
   // remove fragment elements from the current page
   fragmentElements.forEach((element) => {
@@ -148,35 +192,48 @@ function transformPage(main, { inventory, ...source }) {
   // before page transform hook
   WebImporter.Import.transform(TransformHook.beforePageTransform, main, { ...source });
 
-  const tableBuilder = TableBuilder(WebImporter.DOMUtils.createTable);
   // transform all elements using parsers
-  [...blockElements, ...pageElements].forEach((item) => {
-    const { element = main, ...pageBlock } = item;
-    const isBlockElement = blockElements.includes(item);
-    const parserName = WebImporter.Import.getParserName(pageBlock);
-    const parserFn = parsers[parserName];
-    if (!parserFn) return;
-    try {
-      let parserElement = element;
-      if (typeof parserElement === 'string') {
-        parserElement = main.querySelector(parserElement);
+  [...defaultContentElements, ...blockElements, ...pageElements]
+    // sort elements by order in the page
+    .sort((a, b) => (a.uuid ? parseInt(a.uuid.split('-')[1], 10) - parseInt(b.uuid.split('-')[1], 10) : 999))
+    // filter out fragment elements
+    .filter((item) => !fragmentElements.includes(item.element))
+    .forEach((item, idx, arr) => {
+      const { element = main, ...pageBlock } = item;
+      const parserName = WebImporter.Import.getParserName(pageBlock);
+      const parserFn = parsers[parserName];
+      try {
+        let parserElement = element;
+        if (typeof parserElement === 'string') {
+          parserElement = main.querySelector(parserElement);
+        }
+        // before parse hook
+        WebImporter.Import.transform(
+          TransformHook.beforeParse,
+          parserElement,
+          {
+            ...source,
+            ...pageBlock,
+            nextEl: arr[idx + 1],
+          },
+        );
+        // parse the element
+        if (parserFn) {
+          parserFn.call(this, parserElement, { ...source });
+        }
+        // after parse hook
+        WebImporter.Import.transform(
+          TransformHook.afterParse,
+          parserElement,
+          {
+            ...source,
+            ...pageBlock,
+          },
+        );
+      } catch (e) {
+        console.warn(`Failed to parse block: ${parserName}`, e);
       }
-      // before parse hook
-      WebImporter.Import.transform(TransformHook.beforeParse, parserElement, { ...source });
-      // parse the element
-      if (isBlockElement) {
-        WebImporter.DOMUtils.createTable = tableBuilder.build(parserName);
-      }
-      parserFn.call(this, parserElement, { ...source });
-      if (isBlockElement) {
-        WebImporter.DOMUtils.createTable = tableBuilder.restore();
-      }
-      // after parse hook
-      WebImporter.Import.transform(TransformHook.afterParse, parserElement, { ...source });
-    } catch (e) {
-      console.warn(`Failed to parse block: ${parserName}`, e);
-    }
-  });
+    });
 }
 
 /**
@@ -215,8 +272,6 @@ function transformFragment(main, { fragment, inventory, ...source }) {
       console.warn('Failed to parse header block', e);
     }
   } else {
-    const tableBuilder = TableBuilder(WebImporter.DOMUtils.createTable);
-
     (fragment.instances || [])
       .filter((instance) => {
         const siteUrl = WebImporter.Import.findSiteUrl(instance, inventory.urls);
@@ -244,9 +299,7 @@ function transformFragment(main, { fragment, inventory, ...source }) {
         const parserFn = parsers[parserName];
         if (!parserFn) return;
         try {
-          WebImporter.DOMUtils.createTable = tableBuilder.build(parserName);
           parserFn.call(this, element, source);
-          WebImporter.DOMUtils.createTable = tableBuilder.restore();
         } catch (e) {
           console.warn(`Failed to parse block: ${fragmentBlock.key}, with xpath: ${xpath}`, e);
         }
@@ -261,10 +314,6 @@ export default {
 
   transform: async (source) => {
     const { document, params: { originalURL } } = source;
-
-    // sanitize the original URL
-    /* eslint-disable no-param-reassign */
-    source.params.originalURL = new URL(originalURL).href;
 
     /* eslint-disable-next-line prefer-const */
     let publishUrl = window.location.origin;
