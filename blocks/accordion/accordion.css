@@ -1,8 +1,8 @@
+/* stylelint-disable no-descending-specificity */
 .accordion details {
   border: 1px solid #dadada;
 }
 
-/* stylelint-disable-next-line no-descending-specificity */
 .accordion details + details {
   margin-top: 24px;
 }
@@ -58,4 +58,120 @@
 .accordion details[open] .accordion-item-body {
   border-top: 1px solid #dadada;
   background-color: var(--background-color);
+}
+
+
+.accordion.accordion34 {
+  background: #FAFAF6;
+  font-family: 'Instrument Sans', 'Instrument Sans Fallback', Arial, sans-serif;
+  font-size: 15px;
+  color: #373737;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.accordion.accordion34 details {
+  border: none;
+  border-bottom: 1px solid #E0E0DC;
+  margin: 0;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+.accordion.accordion34 details:last-child {
+  border-bottom: none;
+}
+
+/* Refined row design for tighter padding and better alignment */
+.accordion.accordion34 summary {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  outline: none;
+  padding: 16px 12px;
+  color: #373737;
+  font-size: 15px;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+  min-height: 40px;
+  box-sizing: border-box;
+  width: 100%;
+  transition: background 0.1s;
+  gap: 12px;
+}
+
+/* Ensure row layout for label */
+.accordion.accordion34 .accordion-item-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Text style matches design */
+.accordion.accordion34 .accordion-item-label p {
+  margin: 0;
+  padding: 0;
+  color: #373737;
+  font-size: 15px;
+  font-family: inherit;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Hide browser default marker */
+.accordion.accordion34 summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Custom arrow: slightly larger, heavier, tightly aligned */
+.accordion.accordion34 summary::after {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-left: 12px;
+  margin-right: 0;
+  border-right: 2px solid #373737;
+  border-bottom: 2px solid #373737;
+  border-top: none;
+  border-left: none;
+  border-radius: 0.5px;
+  transform: rotate(45deg);
+  transition: transform 0.2s;
+  vertical-align: middle;
+  box-sizing: border-box;
+  opacity: 0.75;
+}
+
+/* Rotate arrow down when open */
+.accordion.accordion34 details[open] summary::after {
+  transform: rotate(-135deg);
+}
+
+/* Body matches row padding and rhythm */
+.accordion.accordion34 .accordion-item-body {
+  padding: 16px 12px;
+  color: #373737;
+  font-size: 15px;
+  font-family: inherit;
+  background: none;
+  border-top: none;
+  box-sizing: border-box;
+}
+
+/* Responsive: tighter padding on smaller screens */
+@media (width <= 700px) {
+  .accordion.accordion34 summary,
+  .accordion.accordion34 .accordion-item-body {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 }
