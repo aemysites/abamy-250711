@@ -1,5 +1,5 @@
+/* stylelint-disable no-descending-specificity */
 
-/* header and nav layout */
 header .nav-wrapper {
   width: 100%;
   z-index: 2;
@@ -50,7 +50,6 @@ header nav a:any-link {
   color: currentcolor;
 }
 
-/* hamburger */
 header nav .nav-hamburger {
   grid-area: hamburger;
   height: 22px;
@@ -125,7 +124,6 @@ header nav[aria-expanded="true"] .nav-hamburger-icon::after {
   }
 }
 
-/* brand */
 header .nav-brand {
   grid-area: brand;
   flex-basis: 128px;
@@ -141,7 +139,6 @@ header nav .nav-brand img {
   max-width: 128px;
 }
 
-/* sections */
 header nav .nav-sections {
   grid-area: sections;
   flex: 1 1 auto;
@@ -254,7 +251,190 @@ header nav .nav-sections ul>li>ul>li {
   }
 }
 
-/* tools */
 header nav .nav-tools {
   grid-area: tools;
+}
+
+.header-wrapper {
+  background: #FCFDF9;
+}
+
+.header-wrapper .nav-wrapper {
+  position: fixed;
+  z-index: 2;
+  width: 100%;
+  background: #FCFDF9;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+}
+
+.header {
+  display: flex;
+  width: 100%;
+}
+
+.header .block.header .nav-wrapper nav,
+.header .nav-wrapper nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1264px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 32px;
+  background: #FCFDF9;
+  min-height: 42px;
+  box-sizing: border-box;
+}
+
+.header nav .nav-hamburger {
+  display: none;
+  visibility: hidden;
+}
+
+.header nav .nav-brand {
+  order: 1;
+  margin-right: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.header nav .nav-brand img {
+  height: 32px;
+  width: 32px;
+  object-fit: contain;
+  margin-right: 0;
+  display: block;
+}
+
+.header nav .nav-sections {
+  order: 2;
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.header nav .nav-sections .default-content-wrapper > ul {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+}
+
+.header nav .nav-sections ul > li {
+  position: relative;
+  font-size: 14px;
+  font-weight: 400;
+  color: #212121;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+}
+
+.header nav .nav-sections ul > li > a {
+  color: #212121;
+  font-size: 14px;
+  font-weight: 400;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.header nav .nav-sections .nav-drop {
+  padding-right: 0;
+  display: flex;
+  align-items: center;
+}
+
+.header nav .nav-sections .nav-drop::after {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-left: 5px;
+  margin-bottom: 0;
+  border: solid #212121;
+  border-width: 0 1.5px 1.5px 0;
+  transform: rotate(45deg);
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
+.header nav .nav-tools {
+  order: 3;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  min-width: 120px;
+  justify-content: flex-end;
+}
+
+.header nav .nav-tools .default-content-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header nav .nav-tools .button-container .button,
+.header .nav-tools .button-container .button {
+  background: transparent;
+  color: #212121;
+  border: 2px solid #000;
+  border-radius: 100px;
+  min-width: 86px;
+  height: 34px;
+  font-size: 15px;
+  padding: 0 24px;
+  text-align: center;
+  line-height: 36px;
+  font-family: inherit;
+  font-weight: 400;
+  margin: 0;
+  box-shadow: 0 2px 0 0 #F9F96E;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.header nav .nav-tools .button-container .button:hover,
+.header nav .nav-tools .button-container .button:focus {
+  box-shadow: 0 4px 0 0 #F9F96E;
+}
+
+.header nav .nav-tools .default-content-wrapper > p:not(.button-container) {
+  display: none;
+}
+
+@media (width <= 900px) {
+  .header-wrapper .nav-wrapper,
+  .header .block.header .nav-wrapper nav,
+  .header .nav-wrapper nav {
+    padding: 0 16px;
+    max-width: 100%;
+    min-height: 48px;
+  }
+
+  .header nav .nav-sections .default-content-wrapper > ul {
+    gap: 16px;
+  }
+
+  .header nav .nav-brand {
+    margin-right: 16px;
+  }
 }
