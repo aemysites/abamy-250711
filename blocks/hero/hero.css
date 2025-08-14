@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 .hero-container .hero-wrapper {
   max-width: unset;
   padding: 0;
@@ -43,5 +44,164 @@
 @media (width >= 900px) {
   .hero {
     padding: 40px 32px;
+  }
+}
+
+.hero.hero39 {
+  position: relative;
+  width: 100vw;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow: hidden;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Background image layer */
+.hero.hero39 > div:first-child {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  display: block;
+}
+
+.hero.hero39 > div:first-child > div,
+.hero.hero39 > div:first-child picture,
+.hero.hero39 > div:first-child img {
+  width: 100vw;
+  height: 100%;
+  min-height: 80vh;
+  display: block;
+}
+
+.hero.hero39 > div:first-child img {
+  object-fit: cover;
+  width: 100vw;
+  height: 100%;
+  min-height: 80vh;
+}
+
+/* Content overlay: center column vertically and adjust proportion */
+.hero.hero39 > div:last-child {
+  position: relative;
+  z-index: 2;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: flex-start;
+  height: 100%;
+  min-height: 80vh;
+  padding-left: 5vw;
+  padding-top: 0;
+  padding-bottom: 0;
+  max-width: 40vw;
+  box-sizing: border-box;
+}
+
+.hero.hero39 > div:last-child > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  width: 100%;
+  max-width: 30vw; /* wider for more natural wrapping */
+}
+
+/* Headline styles: larger and tighter */
+.hero.hero39 h1 {
+  color: #fff;
+  font-family: var(--heading-font-family);
+  font-size: clamp(4rem, 8vw, 7.2rem);
+  font-weight: 300;
+  line-height: 1;
+  margin: 0 0 0.05em;
+  letter-spacing: 0.01em;
+  text-shadow: 0 2px 14px rgb(0 0 0 / 18%);
+}
+
+/* Supporting text styles: wider and lighter */
+.hero.hero39 p {
+  color: #e0e0e0;
+  font-size: clamp(1rem, 1.25vw, 1.35rem);
+  font-family: var(--body-font-family);
+  margin: 0 0 0.5rem;
+  line-height: 1.4;
+  text-shadow: 0 1px 8px rgb(0 0 0 / 11%);
+  max-width: 28vw;
+}
+
+/* Button container */
+.hero.hero39 .button-container {
+  margin: 0;
+}
+
+/* Outlined button styling */
+.hero.hero39 .button-container .button {
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  font-size: clamp(1rem, 1vw, 1.2rem);
+  font-weight: 400;
+  border-radius: 2em;
+  padding: 0.8em 2em;
+  margin: 0;
+  box-shadow: none;
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+  min-width: 120px;
+}
+
+.hero.hero39 .button-container .button:hover,
+.hero.hero39 .button-container .button:focus {
+  background: rgb(255 255 255 / 9%);
+  color: #fff;
+  border-color: #fff;
+}
+
+/* Responsive: Stack content, adjust sizing for mobile */
+@media (width <= 900px) {
+  .hero.hero39 {
+    flex-direction: column;
+    min-height: 56vw;
+    width: 100vw;
+  }
+
+  .hero.hero39 > div:first-child,
+  .hero.hero39 > div:first-child > div,
+  .hero.hero39 > div:first-child picture,
+  .hero.hero39 > div:first-child img {
+    width: 100vw;
+    min-height: 56vw;
+  }
+
+  .hero.hero39 > div:last-child {
+    max-width: 100vw;
+    min-height: 56vw;
+    padding: 10vw 5vw 5vw;
+    justify-content: flex-start;
+  }
+
+  .hero.hero39 > div:last-child > div {
+    max-width: 95vw;
+  }
+
+  .hero.hero39 h1 {
+    font-size: clamp(2rem, 10vw, 3.7rem);
+  }
+
+  .hero.hero39 p {
+    font-size: clamp(1rem, 2.3vw, 1.15rem);
+    max-width: 85vw;
+  }
+
+  .hero.hero39 .button-container .button {
+    font-size: clamp(0.98rem, 2vw, 1.08rem);
+    padding: 0.8em 1.5em;
+    min-width: unset;
   }
 }
