@@ -84,7 +84,6 @@
   border-bottom: none;
 }
 
-/* Refined row design for tighter padding and better alignment */
 .accordion.accordion34 summary {
   display: flex;
   flex-direction: row;
@@ -105,7 +104,6 @@
   gap: 12px;
 }
 
-/* Ensure row layout for label */
 .accordion.accordion34 .accordion-item-label {
   display: flex;
   flex-direction: row;
@@ -114,7 +112,6 @@
   min-width: 0;
 }
 
-/* Text style matches design */
 .accordion.accordion34 .accordion-item-label p {
   margin: 0;
   padding: 0;
@@ -127,12 +124,10 @@
   white-space: nowrap;
 }
 
-/* Hide browser default marker */
 .accordion.accordion34 summary::-webkit-details-marker {
   display: none;
 }
 
-/* Custom arrow: slightly larger, heavier, tightly aligned */
 .accordion.accordion34 summary::after {
   display: inline-block;
   width: 12px;
@@ -151,12 +146,10 @@
   opacity: 0.75;
 }
 
-/* Rotate arrow down when open */
 .accordion.accordion34 details[open] summary::after {
   transform: rotate(-135deg);
 }
 
-/* Body matches row padding and rhythm */
 .accordion.accordion34 .accordion-item-body {
   padding: 16px 12px;
   color: #373737;
@@ -167,11 +160,134 @@
   box-sizing: border-box;
 }
 
-/* Responsive: tighter padding on smaller screens */
 @media (width <= 700px) {
   .accordion.accordion34 summary,
   .accordion.accordion34 .accordion-item-body {
     padding-left: 8px;
     padding-right: 8px;
+  }
+}
+
+
+.accordion.accordion23 {
+  background: #fff;
+  padding: 0;
+  border: none;
+}
+
+/* Use flex-row layout for open details (question/answer side by side) */
+.accordion.accordion23 details[open] {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  min-height: 44px;
+}
+
+/* Closed details: summary spans full width */
+.accordion.accordion23 details:not([open]) {
+  display: block;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  min-height: 44px;
+}
+
+/* Remove border on last row */
+.accordion.accordion23 details:last-child {
+  border-bottom: none;
+}
+
+/* Question (summary/left column) */
+.accordion.accordion23 details summary {
+  flex: 0 0 40%;
+  max-width: 40%;
+  min-width: 180px;
+  padding: 14px 24px 14px 18px;
+  margin: 0;
+  font-family: Syncopate, 'Syncopate Fallback', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: #757575;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: transparent;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: flex-start;
+  cursor: default;
+  user-select: text;
+  list-style: none;
+}
+
+/* Remove browser default triangle marker/caret */
+.accordion.accordion23 details summary::-webkit-details-marker,
+.accordion.accordion23 details summary::marker,
+.accordion.accordion23 details summary::after {
+  display: none;
+}
+
+/* Remove paragraph margin inside summary */
+.accordion.accordion23 details summary p {
+  margin: 0;
+}
+
+/* Answer (body/right column), only show when open */
+.accordion.accordion23 details[open] .accordion-item-body {
+  flex: 1 1 60%;
+  max-width: 60%;
+  min-width: 180px;
+  padding: 14px 32px 14px 8px;
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 13px;
+  color: #232323;
+  display: flex;
+  align-items: flex-start;
+  background: transparent;
+  border: none;
+  visibility: visible;
+  opacity: 1;
+  height: auto;
+  word-break: break-all;
+}
+
+/* Hide answer when not open */
+.accordion.accordion23 details:not([open]) .accordion-item-body {
+  display: none;
+}
+
+/* Remove paragraph margin inside answer */
+.accordion.accordion23 details .accordion-item-body p {
+  margin: 0;
+}
+
+/* Remove any margin between details */
+.accordion.accordion23 details + details {
+  margin-top: 0;
+}
+
+/* Responsive stacking for narrow screens */
+@media (width <= 700px) {
+  .accordion.accordion23 details[open] {
+    flex-direction: column;
+  }
+
+  .accordion.accordion23 details summary,
+  .accordion.accordion23 details[open] .accordion-item-body {
+    max-width: 100%;
+    min-width: 0;
+    padding: 14px 12px;
+  }
+
+  .accordion.accordion23 details[open] .accordion-item-body {
+    padding-top: 0;
   }
 }
