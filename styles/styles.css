@@ -11,62 +11,94 @@
  * governing permissions and limitations under the License.
  */
 :root {
+  /* Rowenta Brand Colors */
+  --color-primary-brand: hsl(210deg, 14.29%, 21.96%);
+  --color-primary-light: hsl(201deg, 19.61%, 80%);
+  --color-primary-base: hsl(199.7deg, 80.72%, 32.55%);
+  --color-primary-hover: hsl(200.28deg, 81.61%, 17.06%);
+  --color-primary-active: hsl(201.7deg, 69.12%, 26.67%);
+  --color-primary-dark: hsl(210deg, 14.29%, 21.96%);
+
+  /* Background Colors */
   --background-color: white;
-  --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
-  --body-font-family: "Instrument Sans", "Instrument Sans Fallback", "sans-serif";
-  --heading-font-family: "Syncopate", "Syncopate Fallback", "sans-serif";
-  --body-font-size-m: 22.56px;
-  --body-font-size-s: 16px;
-  --body-font-size-xs: 11.36px;
-  --heading-font-size-xxl: 90.4px;
-  --heading-font-size-xl: 45.28px;
-  --heading-font-size-l: 22.56px;
-  --heading-font-size-m: 22.56px;
-  --heading-font-size-s: 16px;
-  --heading-font-size-xs: 11.36px;
+  --light-color: hsl(220deg, 9.09%, 93.53%);
+  --dark-color: #303840;
+  --text-color: #303840;
+
+  /* Link Colors */
+  --link-color: #106a96;
+  --link-hover-color: hsl(200.28deg, 81.61%, 17.06%);
+
+  /* Error & Success States */
+  --color-error: hsl(0.96deg, 82.46%, 55.29%);
+  --color-success: hsl(95.63deg, 54.7%, 45.88%);
+  --color-warning: hsl(14.7deg, 64.81%, 45.69%);
+
+  /* Theme Colors */
+  --color-highlight-menu: #c04e29;
+  --color-price-discounted: #e04700;
+
+  /* Typography */
+  --body-font-family: "Roboto", "Roboto-Fallback", "Arial", sans-serif;
+  --heading-font-family: "Roboto", "Roboto-Fallback", "Arial", sans-serif;
+  --body-font-size-m: 1.6rem;
+  --body-font-size-s: 1.4rem;
+  --body-font-size-xs: 1.2rem;
+  --heading-font-size-xxl: 4.8rem;
+  --heading-font-size-xl: 3.6rem;
+  --heading-font-size-l: 2.8rem;
+  --heading-font-size-m: 2.4rem;
+  --heading-font-size-s: 2rem;
+  --heading-font-size-xs: 1.6rem;
+
+  /* Layout */
   --nav-height: 75px;
   --header-height: var(--nav-height);
+
+  /* Border Radius */
+  --border-radius: 0.4rem;
+  --border-radius-large: 0.4rem;
+
+  /* Spacing */
+  --spacing-xs: 0.4rem;
+  --spacing-s: 0.8rem;
+  --spacing-m: 1.2rem;
+  --spacing-l: 2rem;
+  --spacing-xl: 2.8rem;
+  --spacing-xxl: 4.4rem;
+  --spacing-xxxl: 6.4rem;
 }
 
 /* fallback fonts */
 @font-face {
-  font-family:"Syncopate Fallback";
+  font-family:"Roboto-Fallback";
   font-style:normal;
   font-weight:400;
   src:local("Arial");
-  ascent-override:44.95%;
-  descent-override:12.31%;
-  line-gap-override:4.33%;
-  size-adjust:169.04%;
+  ascent-override:92.77%;
+  descent-override:24.41%;
+  line-gap-override:0.00%;
+  size-adjust:100%;
 }
 
-@font-face {
-  font-family:"Instrument Sans Fallback";
-  font-style:normal;
-  font-weight:400;
-  src:local("Arial");
-  ascent-override:93.97%;
-  descent-override:24.22%;
-  line-gap-override:0.00%;
-  size-adjust:103.22%;
+/* Base font size */
+html {
+  font-size: 62.5%; /* 1rem = 10px for easier calculation */
 }
 
 @media (width>=900px) {
   :root {
-    --body-font-size-m: 22.56px;
-    --body-font-size-s: 16px;
-    --body-font-size-xs: 11.36px;
-    --heading-font-size-xxl: 90.4px;
-    --heading-font-size-xl: 45.28px;
-    --heading-font-size-l: 22.56px;
-    --heading-font-size-m: 22.56px;
-    --heading-font-size-s: 16px;
-    --heading-font-size-xs: 11.36px;
-    --nav-height: 75px;
+    --heading-font-size-xxl: 4.8rem;
+    --heading-font-size-xl: 3.6rem;
+    --heading-font-size-l: 2.8rem;
+    --heading-font-size-m: 2.4rem;
+  }
+}
+
+@media (width>=1280px) {
+  :root {
+    --heading-font-size-xxl: 5.6rem;
+    --heading-font-size-xl: 4.4rem;
   }
 }
 
@@ -173,25 +205,27 @@ a.button:any-link, button {
   max-width: 100%;
   margin: 12px 0;
   border: 2px solid transparent;
-  border-radius: 2.4em;
-  padding: 0.5em 1.2em;
+  border-radius: var(--border-radius);
+  padding: 1.2rem 2.4rem;
   font-family: var(--body-font-family);
   font-style: normal;
   font-weight: 500;
   line-height: 1.25;
   text-align: center;
   text-decoration: none;
-  background-color: var(--link-color);
+  background-color: var(--color-primary-base);
   color: var(--background-color);
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  transition: all 0.3s ease;
 }
 
 a.button:hover, a.button:focus, button:hover, button:focus {
-  background-color: var(--link-hover-color);
+  background-color: var(--color-primary-hover);
   cursor: pointer;
+  text-decoration: none;
 }
 
 button:disabled, button:disabled:hover {
@@ -200,9 +234,14 @@ button:disabled, button:disabled:hover {
 }
 
 a.button.secondary, button.secondary {
-  background-color: unset;
-  border: 2px solid currentcolor;
-  color: var(--text-color);
+  background-color: transparent;
+  border: 2px solid var(--link-color);
+  color: var(--link-color);
+}
+
+a.button.secondary:hover, button.secondary:hover {
+  background-color: var(--link-color);
+  color: var(--background-color);
 }
 
 main img {
